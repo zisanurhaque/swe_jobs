@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>SWE Jobs</title>
+  </head>
+  <body>
+    <div
+      class="flex justify-center items-center w-full h-screen bg-gray-100 sm:px-[50px]"
+    >
+      <div
+        class="w-[1200px] max-w-[1200px] h-screen md:h-[700px] shadow bg-white rounded-none md:rounded-md overflow-hidden"
+      >
+        <!-- Header -->
+        <div
+          class="h-[60px] bg-blue-600 flex justify-between items-center px-[15px] md:px-10"
+        >
+          <a href="/">
+            <h1 class="text-white font-semibold text-lg md:text-xl">
+              SWE Jobs
+            </h1>
+          </a>
+          {% block filter %} {% endblock %}
+        </div>
+
+        <!-- Main Contents -->
+        <div class="h-[calc(100%_-_60px)] overflow-hidden overflow-y-scroll">
+          {% block content %} {% endblock %}
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
