@@ -25,23 +25,22 @@ def main_view(request):
     raw_data['Salary'] = raw_data['Salary'].fillna('N/A').astype(str)
     data = raw_data.to_dict(orient='records')
 
-    # Initialize form and filtered data
+    # Initialize form
     form = FilterForm(request.GET or None)
-    filtered_data = []
     if form.is_valid():
+        filtered_data = []
+
         # Search filter
         search_query = form.cleaned_data.get('search')
         if search_query:
             filtered_data = [item for item in data if search_query.lower() in str(item).lower()]
-        else:
-            filtered_data = data
 
         # Company sorting
         company = form.cleaned_data.get('company')
         if company == 'asc':
             data.sort(key=lambda x: x['Company'].lower())
             filtered_data = data
-        else:
+        elif company == 'desc':
             data.sort(key=lambda x: x['Company'].lower(), reverse=True)
             filtered_data = data
 
@@ -50,7 +49,7 @@ def main_view(request):
         if published_time == 'asc':
             data.sort(key=lambda x: get_days(x['Date']))
             filtered_data = data
-        else:
+        elif published_time == 'desc':
             data.sort(key=lambda x: get_days(x['Date']), reverse=True)
             filtered_data = data
         
@@ -59,7 +58,7 @@ def main_view(request):
         if sort_by_salary == 'asc':
             data.sort(key=lambda x: extract_salary(x['Salary']))
             filtered_data = data
-        else:
+        elif sort_by_salary == 'desc':
             data.sort(key=lambda x: extract_salary(x['Salary']), reverse=True)
             filtered_data = data
 
